@@ -1,45 +1,52 @@
+// src/frontend/components/Suggestions.jsx
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 const suggestionsData = [
-  { id: '1', title: 'Atividade Física: Caminhada de 30 minutos' },
-  { id: '2', title: 'Leitura: "O Poder do Agora"' },
-  { id: '3', title: 'Meditação: 10 minutos de respiração' },
+  "Pratique exercícios físicos regularmente.",
+  "Tire um tempo para meditar ou respirar profundamente.",
+  "Mantenha uma alimentação saudável e balanceada.",
+  "Durma bem e respeite seu ciclo de sono.",
+  "Estabeleça metas e prioridades diárias.",
+  "Conecte-se com amigos e familiares.",
+  "Dedique tempo a atividades que você ama.",
+  "Evite comparações com os outros.",
+  "Aprenda a dizer não quando necessário.",
+  "Busque ajuda profissional se necessário.",
 ];
 
 const Suggestions = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sugestões</Text>
-      <FlatList
-        data={suggestionsData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.suggestionItem}>
-            <Text style={styles.suggestionText}>{item.title}</Text>
-          </View>
-        )}
-      />
+      {suggestionsData.map((suggestion, index) => (
+        <View key={index} style={styles.bubble}>
+          <Text style={styles.bubbleText}>{suggestion}</Text>
+        </View>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f5f5f5',
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  suggestionItem: {
-    backgroundColor: '#e0f7fa',
+  bubble: {
+    backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    marginVertical: 8,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 2,
+    elevation: 1,
   },
-  suggestionText: {
+  bubbleText: {
     fontSize: 16,
+    color: '#333',
   },
 });
 

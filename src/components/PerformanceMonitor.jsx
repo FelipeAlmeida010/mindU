@@ -1,19 +1,25 @@
+// src/frontend/components/PerformanceMonitor.jsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // ou a biblioteca que você estiver usando
 
-const PerformanceMonitor = () => (
-  <View style={styles.container}>
-    <Text style={styles.title}>Monitoramento de Desempenho Mental</Text>
-  </View>
-);
+const PerformanceMonitor = () => {
+  return (
+    <View style={styles.container}>
+      {/* Bonequinho representando o progresso */}
+      <Icon name="directions-walk" size={100} color="#483D8B" />
+      
+      {/* Ícone representando o circuito ou progresso */}
+      <Icon name="show-chart" size={100} color="#483D8B" />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

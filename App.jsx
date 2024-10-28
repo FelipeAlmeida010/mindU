@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,6 +10,8 @@ import Cadastro from './src/frontend/views/cadastro';
 import Home from './src/frontend/views/home';
 import Profile from './src/frontend/views/profile';
 import Notification from './src/frontend/views/notification';
+import TherapyRoom from './src/frontend/views/TherapyRoom'; 
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -21,6 +24,11 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Notification" component={Notification} />
+        <Stack.Screen 
+          name="TherapyRoom" 
+          component={TherapyRoom} 
+          options={{ title: 'Sala de Terapia mindU' }} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

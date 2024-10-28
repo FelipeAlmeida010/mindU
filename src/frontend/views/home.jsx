@@ -1,7 +1,9 @@
+// Home.jsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialIcons';  // Import do ícone
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header';
 import MentalHealthGraph from '../../components/MentalHealthGraph';
 import ExternalContent from '../../components/ExternalContent';
@@ -11,36 +13,29 @@ import PerformanceMonitor from '../../components/PerformanceMonitor';
 const Home = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState('graph');
+  const [notificationCount, setNotificationCount] = useState(3); // Exemplo fixo, pode ser dinâmico
 
-  // Animação para o texto "mindU Terapeuta"
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     const animate = () => {
       Animated.sequence([
-        Animated.timing(scaleAnim, {
-          toValue: 1.2, // Aumenta o tamanho
-          duration: 500,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnim, {
-          toValue: 1, // Retorna ao tamanho original
-          duration: 500,
-          useNativeDriver: true,
-        }),
-      ]).start(() => animate()); // Reinicia a animação
+        Animated.timing(scaleAnim, { toValue: 1.2, duration: 500, useNativeDriver: true }),
+        Animated.timing(scaleAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
+      ]).start(() => animate());
     };
-
-    animate(); // Inicia a animação
+    animate();
   }, [scaleAnim]);
 
-  const animatedStyle = {
-    transform: [{ scale: scaleAnim }],
-  };
+  const animatedStyle = { transform: [{ scale: scaleAnim }] };
 
   return (
     <View style={styles.container}>
-      <Header onProfilePress={() => navigation.navigate('Profile')} />
+      <Header
+        onProfilePress={() => navigation.navigate('Profile')}
+        onNotificationPress={() => navigation.navigate('Notification')}
+        notificationCount={notificationCount}
+      />
 
       {/* Abas */}
       <View style={styles.tabContainer}>
@@ -78,13 +73,16 @@ const Home = () => {
       {activeTab === 'graph' && (
         <View style={styles.contentContainer}>
           <MentalHealthGraph />
-          {/* Ícone e nome "mindU terapeuta" próximo ao rodapé */}
-          <View style={styles.therapistContainer}>
+          {/* Ícone e nome "mindU Terapeuta" com navegação */}
+          <TouchableOpacity
+            style={styles.therapistContainer}
+            onPress={() => navigation.navigate('TherapyRoom')}
+          >
             <Icon name="psychology" size={24} color="#483D8B" />
             <Animated.Text style={[styles.therapistText, animatedStyle]}>
               mindU Terapeuta
             </Animated.Text>
-          </View>
+          </TouchableOpacity>
         </View>
       )}
       {activeTab === 'external' && <ExternalContent />}
@@ -101,8 +99,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: 'flex-end', // Alinha o conteúdo ao final
-    paddingBottom: 20, // Adiciona espaço no fundo
+    justifyContent: 'flex-end',
+    paddingBottom: 20,
   },
   tabContainer: {
     paddingVertical: 10,
@@ -127,8 +125,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10, // Ajuste a margem conforme necessário
-    marginBottom: 20, // Adiciona um espaço embaixo do texto
+    marginTop: 10,
+    marginBottom: 20,
   },
   therapistText: {
     marginLeft: 8,
